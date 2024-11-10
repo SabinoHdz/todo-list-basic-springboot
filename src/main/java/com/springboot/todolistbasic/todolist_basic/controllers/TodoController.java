@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 //import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.springboot.todolistbasic.todolist_basic.models.dto.TodoFilterDto;
 import com.springboot.todolistbasic.todolist_basic.models.dto.TodoListDto;
 
 @RestController()
@@ -49,5 +51,17 @@ public class TodoController {
     @PutMapping("/eliminar/{id}")
     public String deleteTodo() {
         return "Delete a todo";
+    }
+
+    @GetMapping("/filter")
+    public TodoFilterDto filterTodos(@RequestParam(required = false, defaultValue = "todo filter") String filter,
+            @RequestParam String title, @RequestParam(required = false) String description,
+            @RequestParam(required = false) String done) {
+        TodoFilterDto todoFilterDto = new TodoFilterDto();
+        todoFilterDto.setFilter(filter);
+        todoFilterDto.setTitle(title);
+        todoFilterDto.setDescription(description);
+        todoFilterDto.setDone(done);
+        return todoFilterDto;
     }
 }
