@@ -2,8 +2,12 @@ package com.springboot.todolistbasic.todolist_basic.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.print.DocFlavor.READER;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,5 +67,11 @@ public class TodoController {
         todoFilterDto.setDescription(description);
         todoFilterDto.setDone(done);
         return todoFilterDto;
+    }
+
+    @GetMapping("/getTodo/{id}")
+    public Map<String, Object> getTodoById(@PathVariable String id) {
+        Map<String, Object> response = Map.of("id", id, "message", "get a todo by path variable");
+        return response;
     }
 }
