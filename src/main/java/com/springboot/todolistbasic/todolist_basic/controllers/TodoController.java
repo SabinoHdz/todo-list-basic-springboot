@@ -1,7 +1,7 @@
 package com.springboot.todolistbasic.todolist_basic.controllers;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,22 +10,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 //import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.springboot.todolistbasic.todolist_basic.models.dto.TodoListDto;
+
 @RestController()
 @RequestMapping("/todos")
 public class TodoController {
 
     @GetMapping("/obtener")
-    public Map<String, Object> getTodos() {
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", "Get all todos");
-        response.put("status", 200);
-        response.put("data", null);
-        return response;
+    public List<TodoListDto> getTodos() {
+        List<TodoListDto> todos = new ArrayList<>();
+        todos.add(new TodoListDto("Title 1", "Description 1", "Done 1"));
+        todos.add(new TodoListDto("Title 2", "Description 2", "Done 2"));
+        todos.add(new TodoListDto("Title 3", "Description 3", "Done 3"));
+        return todos;
+
     }
 
     @GetMapping("/obtener/{id}")
-    public String getTodo() {
-        return "Get a todo";
+    public TodoListDto getTodo() {
+        TodoListDto todoListDto = new TodoListDto();
+        todoListDto.setTitle("Title");
+        todoListDto.setDescription("Description");
+        todoListDto.setDone("Done");
+        return todoListDto;
     }
 
     // @RequestMapping(path = "/crear", method = RequestMethod.POST)
