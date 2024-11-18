@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springboot.todolistbasic.todolist_basic.exceptions.TaskNotFoundException;
 import com.springboot.todolistbasic.todolist_basic.models.Task;
 import com.springboot.todolistbasic.todolist_basic.services.TaskServiceImpl;
 
@@ -30,8 +31,18 @@ public class TaskController {
 
     @GetMapping("/{id}")
     public Task getTask(@PathVariable Long id) {
+        // implementación con Optional
+        // Optional<Task> optinalTask = taskService.getTask(id);
+        // if (!optinalTask.isPresent()) {
+        // throw new TaskNotFoundException("La tarea no existe");
+        // }
 
-        return taskService.getTask(id);
+        // return optinalTask.get();
+
+        // implementación sin optional
+        Task task = taskService.getTask(id).orElseThrow(() -> new TaskNotFoundException("Task not found"));
+
+        return task;
     }
 
     @PostMapping
