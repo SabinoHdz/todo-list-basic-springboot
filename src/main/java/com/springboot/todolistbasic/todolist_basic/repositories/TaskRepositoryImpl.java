@@ -3,6 +3,7 @@ package com.springboot.todolistbasic.todolist_basic.repositories;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -53,8 +54,9 @@ public class TaskRepositoryImpl implements TaskRepository {
     }
 
     @Override
-    public void deleteTask(Long id) {
+    public Optional<Task> deleteTask(Long id) {
         Task task = this.findById(id);
         tasks.remove(task);
+        return Optional.ofNullable(task);
     }
 }
