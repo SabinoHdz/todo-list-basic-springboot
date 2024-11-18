@@ -1,7 +1,10 @@
+c:\Users\sabin\Documents\Programacion\Java\spring\todolist-basic\src\main\java\com\springboot\todolistbasic\todolist_basic\controllers\HandlerExceptionController.java
 c:\Users\sabin\Documents\Programacion\Java\spring\todolist-basic\src\main\java\com\springboot\todolistbasic\todolist_basic\controllers\TaskController.java
 c:\Users\sabin\Documents\Programacion\Java\spring\todolist-basic\src\main\java\com\springboot\todolistbasic\todolist_basic\controllers\TodoController.java
+c:\Users\sabin\Documents\Programacion\Java\spring\todolist-basic\src\main\java\com\springboot\todolistbasic\todolist_basic\exceptions\TaskNotFoundException.java
 c:\Users\sabin\Documents\Programacion\Java\spring\todolist-basic\src\main\java\com\springboot\todolistbasic\todolist_basic\models\dto\TodoFilterDto.java
 c:\Users\sabin\Documents\Programacion\Java\spring\todolist-basic\src\main\java\com\springboot\todolistbasic\todolist_basic\models\dto\TodoListDto.java
+c:\Users\sabin\Documents\Programacion\Java\spring\todolist-basic\src\main\java\com\springboot\todolistbasic\todolist_basic\models\Error.java
 c:\Users\sabin\Documents\Programacion\Java\spring\todolist-basic\src\main\java\com\springboot\todolistbasic\todolist_basic\models\Task.java
 c:\Users\sabin\Documents\Programacion\Java\spring\todolist-basic\src\main\java\com\springboot\todolistbasic\todolist_basic\repositories\TaskRepository.java
 c:\Users\sabin\Documents\Programacion\Java\spring\todolist-basic\src\main\java\com\springboot\todolistbasic\todolist_basic\repositories\TaskRepositoryImpl.java
