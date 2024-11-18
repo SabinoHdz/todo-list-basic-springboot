@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springboot.todolistbasic.todolist_basic.exceptions.TaskNotFoundException;
 import com.springboot.todolistbasic.todolist_basic.models.Task;
 import com.springboot.todolistbasic.todolist_basic.repositories.TaskRepositoryImpl;
 
@@ -29,12 +30,14 @@ public class TaskServiceImpl implements TaskService {
         taskRepository.createTask(task);
     }
 
-    public Task updateTask(Long id, Task task) {
-        return taskRepository.updateTask(id, task);
-
+    public Optional<Task> updateTask(Long id, Task task) {
+        Task updateTask = taskRepository.updateTask(id, task);
+        return Optional.ofNullable(updateTask);
     }
 
-    public void deleteTask(Long id) {
-        taskRepository.deleteTask(id);
+    public Task deleteTask(Long id) {
+        Task deleteTask = taskRepository.deleteTask(id)
+                .orElseThrow(() -> new TaskNotFoundException("Errorr: Not found task"));
+        return deleteTask;
     }
 }

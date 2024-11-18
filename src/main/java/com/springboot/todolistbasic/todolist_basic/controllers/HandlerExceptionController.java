@@ -25,6 +25,7 @@ public class HandlerExceptionController {
     }
 
     @ExceptionHandler({ TaskNotFoundException.class,
+            NullPointerException.class
     })
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) // 400
     public ResponseEntity<Error> notFoundDataException(Exception e) {

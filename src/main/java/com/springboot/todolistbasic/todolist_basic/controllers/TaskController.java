@@ -54,12 +54,18 @@ public class TaskController {
 
     @PutMapping("/{id}")
     public Task updateTask(@PathVariable Long id, @RequestBody Task data) {
-        return taskService.updateTask(id, data);
+        Task updateTask = taskService.updateTask(id, data)
+                .orElseThrow(() -> new TaskNotFoundException("Task for update not found"));
+        return updateTask;
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteTask(@PathVariable Long id) {
-        taskService.deleteTask(id);
+    public ResponseEntity<?> deleteTask(@PathVariable Long id) {
+        Task taskDelete = taskService.deleteTask(id);
+        if (taskDelete == null || taskDelete.equals(null)) {
+            return ResponseEntity.notFound().build();
+
+        }
         return ResponseEntity.ok("Task deleted");
 
     }
