@@ -30,7 +30,7 @@ public class TaskRepositoryImpl implements TaskRepository {
     @Override
     public Task findById(Long id) {
         return tasks.stream().filter(task -> task.getId().equals(id)).findFirst()
-                .orElseThrow();
+                .orElse(null);
     }
 
     @Override
