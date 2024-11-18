@@ -1,0 +1,10 @@
+com\springboot\todolistbasic\todolist_basic\controllers\TaskController.class
+com\springboot\todolistbasic\todolist_basic\services\TaskService.class
+com\springboot\todolistbasic\todolist_basic\models\dto\TodoFilterDto.class
+com\springboot\todolistbasic\todolist_basic\repositories\TaskRepositoryImpl.class
+com\springboot\todolistbasic\todolist_basic\services\TaskServiceImpl.class
+com\springboot\todolistbasic\todolist_basic\controllers\TodoController.class
+com\springboot\todolistbasic\todolist_basic\TodolistBasicApplication.class
+com\springboot\todolistbasic\todolist_basic\models\dto\TodoListDto.class
+com\springboot\todolistbasic\todolist_basic\models\Task.class
+com\springboot\todolistbasic\todolist_basic\repositories\TaskRepository.class
