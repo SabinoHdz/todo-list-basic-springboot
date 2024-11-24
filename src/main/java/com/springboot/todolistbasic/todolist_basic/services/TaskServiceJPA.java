@@ -13,7 +13,9 @@ public interface TaskServiceJPA {
 
     Task save(Task task);
 
-    Optional<Task> deleted(Task task);
+    Optional<Task> update(Long id, Task task);
+
+    Optional<Task> deleted(Long id);
 
     void deletedById(Long id);
 }

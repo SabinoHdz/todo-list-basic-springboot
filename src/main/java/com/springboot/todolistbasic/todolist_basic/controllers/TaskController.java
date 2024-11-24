@@ -61,15 +61,17 @@ public class TaskController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task data) {
-        data.setId(id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(data);
+        Optional<Task> task = taskService.update(id, data);
+        if (!task.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(task.orElseThrow());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteTask(@PathVariable Long id) {
-        Task task = new Task();
-        task.setId(id);
-        Optional<Task> taskDelete = taskService.deleted(task);
+
+        Optional<Task> taskDelete = taskService.deleted(id);
         if (!taskDelete.isPresent()) {
             return ResponseEntity.notFound().build();
         }

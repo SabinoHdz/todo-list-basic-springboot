@@ -36,8 +36,24 @@ public class TaskServiceImpl implements TaskServiceJPA {
 
     @Override
     @Transactional
-    public Optional<Task> deleted(Task task) {
-        Optional<Task> taskDB = taskRepository.findById(task.getId());
+    public Optional<Task> update(Long id, Task task) {
+        Optional<Task> taskOptional = taskRepository.findById(id);
+
+        if (taskOptional.isPresent()) {
+            Task t = taskOptional.orElseThrow();
+            t.setTitle(task.getTitle());
+            t.setDescription(task.getDescription());
+            t.setCompleted(task.isCompleted());
+            return Optional.of(taskRepository.save(t));
+        }
+        return taskOptional;
+
+    }
+
+    @Override
+    @Transactional
+    public Optional<Task> deleted(Long id) {
+        Optional<Task> taskDB = taskRepository.findById(id);
         taskDB.ifPresent(t -> taskRepository.delete(t));
         return taskDB;
     }
