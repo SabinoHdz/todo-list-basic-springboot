@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  postgres-springboot:
+    image: postgres:15.3
+    container_name: todolist_postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=todolist_springboot
+    ports:
+      - 5432:5432
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: todolist_springboot
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=springboot@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - 5051:80

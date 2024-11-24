@@ -12,22 +12,22 @@ import jakarta.persistence.Table;
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "programming_languague")
-    private String programmingLanguague;
+    @Column(name = "programming_language")
+    private String programmingLanguage;
 
     public Person() {
     }
 
-    public Person(Long id, String name, String lastName, String programmingLanguague) {
+    public Person(Long id, String name, String lastName, String programmingLanguage) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
-        this.programmingLanguague = programmingLanguague;
+        this.programmingLanguage = programmingLanguage;
     }
 
     public Long getId() {
@@ -54,18 +54,18 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public String getProgrammingLanguague() {
-        return programmingLanguague;
+    public String getProgrammingLanguage() {
+        return programmingLanguage;
     }
 
-    public void setProgrammingLanguague(String programmingLanguague) {
-        this.programmingLanguague = programmingLanguague;
+    public void setProgrammingLanguage(String programmingLanguague) {
+        this.programmingLanguage = programmingLanguague;
     }
 
     @Override
     public String toString() {
         return "Person [id=" + id + ", name=" + name + ", lastName=" + lastName + ", programmingLanguague="
-                + programmingLanguague + "]";
+                + programmingLanguage + "]";
     }
 
 }
