@@ -5,39 +5,47 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.springboot.todolistbasic.todolist_basic.exceptions.TaskNotFoundException;
-import com.springboot.todolistbasic.todolist_basic.models.Task;
-import com.springboot.todolistbasic.todolist_basic.repositories.TaskRepositoryImpl;
+import com.springboot.todolistbasic.todolist_basic.entities.Task;
+import com.springboot.todolistbasic.todolist_basic.repositories.TaskRepositoryJPA;
 
 @Service
-public class TaskServiceImpl implements TaskService {
+public class TaskServiceImpl implements TaskServiceJPA {
     @Autowired
-    private TaskRepositoryImpl taskRepository;
+    private TaskRepositoryJPA taskRepository;
 
     @Override
-    public List<Task> getTasks() {
+    @Transactional(readOnly = true)
+    public List<Task> findAll() {
         return taskRepository.findAll();
     }
 
     @Override
-    public Optional<Task> getTask(Long id) {
-        Task task = taskRepository.findById(id);
-        return Optional.ofNullable(task);
+    @Transactional(readOnly = true)
+    public Optional<Task> findById(Long id) {
+
+        return taskRepository.findById(id);
     }
 
-    public void createTask(Task task) {
-        taskRepository.createTask(task);
+    @Override
+    @Transactional
+    public Task save(Task task) {
+        return taskRepository.save(task);
     }
 
-    public Optional<Task> updateTask(Long id, Task task) {
-        Task updateTask = taskRepository.updateTask(id, task);
-        return Optional.ofNullable(updateTask);
+    @Override
+    @Transactional
+    public Optional<Task> deleted(Task task) {
+        Optional<Task> taskDB = taskRepository.findById(task.getId());
+        taskDB.ifPresent(t -> taskRepository.delete(t));
+        return taskDB;
     }
 
-    public Task deleteTask(Long id) {
-        Task deleteTask = taskRepository.deleteTask(id)
-                .orElseThrow(() -> new TaskNotFoundException("Errorr: Not found task"));
-        return deleteTask;
+    @Override
+    @Transactional
+    public void deletedById(Long id) {
+        taskRepository.deleteById(id);
     }
+
 }
