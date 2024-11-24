@@ -49,6 +49,11 @@ public class TodolistBasicApplication implements CommandLineRunner {
 		System.out.println("CONSULTA 5: Todos los registros con findByProgrammingLanguageAndName()");
 		persons = personRepository.findByProgrammingLanguageAndName("Java", "Josefa");
 		persons.stream().forEach(person -> System.out.println(person));
+
+		System.out.println("-----------------------------------------------");
+		System.out.println("CONSULTA 6: Todos los registros con obtenerPersonData()");
+		List<Object[]> data = personRepository.obtenerPersonData();
+		data.stream().forEach(person -> System.out.println(person[0] + " " + person[1]));
 	}
 
 }

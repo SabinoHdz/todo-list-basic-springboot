@@ -20,4 +20,8 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     @Query("select p from Person p where p.programmingLanguage = ?1 and p.name=?2")
     List<Person> buscarByProgrammingLanguage(String programmingLanguage, String name);
 
+    // Lista de valores de la consulta
+    @Query("select p.name,p.lastName from Person p")
+    List<Object[]> obtenerPersonData();
+
 }
