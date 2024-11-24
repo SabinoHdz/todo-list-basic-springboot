@@ -1,8 +1,10 @@
 package com.springboot.todolistbasic.todolist_basic.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springboot.todolistbasic.todolist_basic.exceptions.TaskNotFoundException;
-import com.springboot.todolistbasic.todolist_basic.models.Task;
+import com.springboot.todolistbasic.todolist_basic.entities.Task;
 import com.springboot.todolistbasic.todolist_basic.services.TaskServiceImpl;
 
 @RestController
@@ -26,11 +27,11 @@ public class TaskController {
 
     @GetMapping
     public List<Task> getTasks() {
-        return taskService.getTasks();
+        return taskService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Task getTask(@PathVariable Long id) {
+    public ResponseEntity<?> getTask(@PathVariable Long id) {
         // implementación con Optional
         // Optional<Task> optinalTask = taskService.getTask(id);
         // if (!optinalTask.isPresent()) {
@@ -40,34 +41,39 @@ public class TaskController {
         // return optinalTask.get();
 
         // implementación sin optional
-        Task task = taskService.getTask(id).orElseThrow(() -> new TaskNotFoundException("Task not found"));
+        // Task task = taskService.findById(id).orElseThrow(() -> new
+        // TaskNotFoundException("Task not found"));
+        // return task;
 
-        return task;
+        Optional<Task> task = taskService.findById(id);
+        if (task.isPresent()) {
+            return ResponseEntity.ok(task.orElseThrow());
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public Task createTask(@RequestBody Task task) {
-        taskService.createTask(task);
-        return task;
+    public ResponseEntity<Task> createTask(@RequestBody Task task) {
+        Task taskCreate = taskService.save(task);
+        return ResponseEntity.status(HttpStatus.CREATED).body(taskCreate);
 
     }
 
     @PutMapping("/{id}")
-    public Task updateTask(@PathVariable Long id, @RequestBody Task data) {
-        Task updateTask = taskService.updateTask(id, data)
-                .orElseThrow(() -> new TaskNotFoundException("Task for update not found"));
-        return updateTask;
+    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task data) {
+        data.setId(id);
+        return ResponseEntity.status(HttpStatus.CREATED).body(data);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteTask(@PathVariable Long id) {
-        Task taskDelete = taskService.deleteTask(id);
-        if (taskDelete == null || taskDelete.equals(null)) {
+        Task task = new Task();
+        task.setId(id);
+        Optional<Task> taskDelete = taskService.deleted(task);
+        if (!taskDelete.isPresent()) {
             return ResponseEntity.notFound().build();
-
         }
-        return ResponseEntity.ok("Task deleted");
-
+        return ResponseEntity.ok(taskDelete.orElseThrow());
     }
 
 }
